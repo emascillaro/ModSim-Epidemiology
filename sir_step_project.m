@@ -17,9 +17,9 @@ function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu)
 %   i_n = next number of infected individuals
 %   r_n = next number of recovered individuals
 
-s_n = s - beta*s - mu*s;
-i_n = i + beta*s + lambda*r - gamma*i;
-r_n = r + gamma*i - lambda*r + mu*s;
+s_n = s - beta*s - mu*s
+i_n = i + beta*s + lambda*r - gamma*i
+r_n = r + gamma*i - lambda*r + mu*s
 
 
 

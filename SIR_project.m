@@ -2,10 +2,10 @@ s_0 = 99;
 i_0 =  1;
 r_0 =  0;
 
-beta = 1 / 5;
-gamma = 1 / 2;
-mu = 1/8;
-lambda = 1/50;
+beta = 1/90;
+gamma = 1/4;
+mu = 0;
+lambda = 0;
 
 num_steps = 30;
 
