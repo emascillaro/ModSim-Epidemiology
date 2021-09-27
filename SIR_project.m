@@ -3,8 +3,22 @@ i_0 =  1;
 r_0 =  0;
 
 beta = 1 / 5;
-gamma = 1 / 4;
+gamma = 1 / 2;
 mu = 1/8;
-lambda = 1/5;
+lambda = 1/50;
 
-result = sir_step(s_0, i_0, r_0, beta, gamma)
+num_steps = 30;
+
+[s_n, i_n, r_n, W] = sir_simulate_project(s_0, i_0, r_0, beta, gamma, lambda, mu, num_steps);
+
+% Plot
+figure(1); clf; hold on;
+plot(W, s_n); label1 = "Susceptible";
+plot(W, i_n); label2 = "Infected";
+plot(W, r_n); label3 = "Recovered";
+
+plot(s_n + i_n + r_n); label4 = "Total People";
+
+xlabel("Week")
+ylabel("Persons")
+legend({label1, label2, label3, label4})
