@@ -38,7 +38,7 @@ R(1) = r;
 
 % Run simulation
 for step = 2 : num_steps
-    [s, i, r] = sir_step_project(s, i, r, beta, gamma, lambda, mu);
+    [s, i, r] = sir_step_project(s, i, r, beta, gamma, lambda, mu, step);
     S(step) = s;
     I(step) = i;
     R(step) = r;

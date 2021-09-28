@@ -5,7 +5,7 @@ r_0 =  0;
 beta = 1/90;
 gamma = 1/2;
 mu = 0;
-lambda = 1/270;
+lambda = 1/180;
 
 num_steps = 30;
 
