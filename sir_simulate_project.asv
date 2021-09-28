@@ -42,11 +42,9 @@ for step = 2 : num_steps
     S(step) = s;
     I(step) = i;
     R(step) = r;
-    %if 15 <= num_steps <= 20;
-    %   lambda = 1/90;  
-    %else
-    %   lambda = 1/270;
-    %end 
+    if num_steps == 30
+       lambda = 1/180;
+    end    
 end
 
 end
