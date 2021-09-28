@@ -5,9 +5,9 @@ r_0 =  0;
 beta = 1/90;
 gamma = 1/2;
 mu = 0;
-lambda = 1/180;
+lambda = 1/270;
 
-num_steps = 30;
+num_steps = 70;
 
 [s_n, i_n, r_n, W] = sir_simulate_project(s_0, i_0, r_0, beta, gamma, lambda, mu, num_steps);
 

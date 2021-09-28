@@ -17,24 +17,30 @@ function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, st
 %   i_n = next number of infected individuals
 %   r_n = next number of recovered individuals
 
+s_n = s - beta*s*i - mu*s + lambda*r*step;
+i_n = i + beta*s*i - gamma*i;
+r_n = r + gamma*i - lambda*r*step + mu*s;
+
+%{
 if step <= 14;
     s_n = s - beta*s*i - mu*s;
     i_n = i + beta*s*i - gamma*i;
     r_n = r + gamma*i + mu*s;  
     disp(step);
-elseif (step == 15)
-    s_n = s - beta*s*i - mu*s;
-    i_n = i + beta*s*i - gamma*i;
-    r_n = r + gamma*i + mu*s;  
-    s_n = s_n + r_n;
-    r_n = 0;
-    disp(':)')
+%Dumping all recovered back into susceptible
+%elseif (step == 15)
+%    s_n = s - beta*s*i - mu*s;
+%    i_n = i + beta*s*i - gamma*i;
+%    r_n = r + gamma*i + mu*s;  
+%    s_n = s_n + r_n;
+%    r_n = 0;
+%    disp(':)')
 else
     s_n = s - beta*s*i - mu*s + lambda*r;
     i_n = i + beta*s*i - gamma*i;
     r_n = r + gamma*i - lambda*r + mu*s;
 end 
-
+%}
 reinfected = lambda*r*i;
 
 % This way of enforcing invariants does not actually conserve persons!
