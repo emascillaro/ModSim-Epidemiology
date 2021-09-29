@@ -17,9 +17,17 @@ function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, st
 %   i_n = next number of infected individuals
 %   r_n = next number of recovered individuals
 
+if step <= 30;
 s_n = s - beta*s*i - mu*s + lambda*r*step;
 i_n = i + beta*s*i - gamma*i;
 r_n = r + gamma*i - lambda*r*step + mu*s;
+
+else
+s_n = s - beta*s*i - mu*s + lambda*r*(900/step);
+i_n = i + beta*s*i - gamma*i;
+r_n = r + gamma*i - lambda*r*(900/step) + mu*s;
+
+end
 
 %{
 if step <= 14;
