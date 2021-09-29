@@ -1,4 +1,4 @@
-function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, num_steps)
+function [s_n, i_n, r_n] = sir_step(s, i, r, beta, gamma)
 % fcn_step Advance an SIR model one timestep
 %
 % Usage
@@ -16,21 +16,19 @@ function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, nu
 %   s_n = next number of susceptible individuals
 %   i_n = next number of infected individuals
 %   r_n = next number of recovered individuals
-if 0 <= num_steps <= 20;
-    s_n = s - beta*s*i - mu*s;
-    i_n = i + beta*s*i - gamma*i;
-    r_n = r + gamma*i + mu*s;  
-else
-    s_n = s - beta*s*i - mu*s + lambda*r*i;
-    i_n = i + beta*s*i - gamma*i;
-    r_n = r + gamma*i - lambda*r*i + mu*s;
-end 
 
-reinfected = lambda*r*i
+% compute new infections and recoveries
+infected = beta * i * s;
+recovered = gamma * i;
+    
+% Update state
+s_n = s - infected;
+i_n = i + infected - recovered;
+r_n = r + recovered;
 
-% This way of enforcing invariants does not actually conserve persons!
-%s_n = max(s_n, 0);
-%i_n = max(i_n, 0);
-%r_n = max(r_n, 0);
+% Enforce invariants; necessary since we're doing a discrete approx.
+s_n = max(s_n, 0);
+i_n = max(i_n, 0);
+r_n = max(r_n, 0);
     
 end
