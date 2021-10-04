@@ -1,4 +1,4 @@
-function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, step)
+function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, step, over)
 % fcn_step Advance an SIR model one timestep
 %
 % Usage
@@ -27,11 +27,11 @@ infected  = beta*s*i;
 recovered = gamma*i;
 
 % Enforce invariants 1
-total = s + i + r;
-infected = min(s, infected);           % Cannot infect more people than current s
-infected = min(total - i, infected);   % Cannot infect more than total
-recovered = min(i, recovered);         % Cannot recover more people than current i
-recovered = min(total - r, recovered); % Cannot recover more than total
+%total = s + i + r;
+%infected = min(s, infected);           % Cannot infect more people than current s
+%infected = min(total - i, infected);   % Cannot infect more than total
+%recovered = min(i, recovered);         % Cannot recover more people than current i
+%recovered = min(total - r, recovered); % Cannot recover more than total
 
 
 % Update state 1
@@ -43,16 +43,20 @@ vaccinated = mu*s_n;
 reinfected = lambda*r_n*i_n;
 
 % Enforce invariants 2
-total = s_n + i_n + r_n;
-vaccinated = min(s_n, vaccinated);           % Cannot vaccinate more people than current s
-vaccinated = min(total - r, vaccinated);   % Cannot vaccinate more than total
-reinfected = min(r, reinfected);         % Cannot reinfecte more people than current r
-reinfected = min(total - i, reinfected); % Cannot reinfecte more than total
+%total = s_n + i_n + r_n;
+%vaccinated = min(s_n, vaccinated);           % Cannot vaccinate more people than current s
+%vaccinated = min(total - r_n, vaccinated);   % Cannot vaccinate more than total
+%reinfected = min(r_n, reinfected);         % Cannot reinfecte more people than current r
+%reinfected = min(total - i_n, reinfected); % Cannot reinfecte more than total
 
 % Update state 2
 s_n = s_n - vaccinated + reinfected;
 i_n = i_n;
 r_n = r_n - reinfected + vaccinated;
+
+if i_n <= 50;
+    over = [over, step]
+end
 
 
 %Previously:

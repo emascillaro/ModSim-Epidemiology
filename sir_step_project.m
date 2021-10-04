@@ -54,7 +54,6 @@ s_n = s_n - vaccinated + reinfected;
 i_n = i_n;
 r_n = r_n - reinfected + vaccinated;
 
-
 %Previously:
 %s_n = s - beta*s*i - mu*s + lambda*r*i;
 %i_n = i + beta*s*i - gamma*i;
