@@ -2,7 +2,7 @@ function [S, I, R, W] = sir_simulate_project(s_0, i_0, r_0, beta, gamma, lambda,
 % fcn_simulate Simulate a SIR model
 %
 % Usage
-%   [S, I, R, W] = fcn_simulate(s_0, i_0, r_0, beta, gamma, num_steps)
+%   [S, I, R, W] = sir_simulate_project(s_0, i_0, r_0, beta, gamma, lambda, mu, num_steps)
 %
 % Arguments
 %   s_0 = initial number of susceptible individuals
@@ -11,7 +11,8 @@ function [S, I, R, W] = sir_simulate_project(s_0, i_0, r_0, beta, gamma, lambda,
 %
 %   beta = infection rate parameter
 %   gamma = recovery rate paramter
-%   
+%   lamda = reinfection rate parameter
+%   mu = vaccination rate paramter
 %
 %   num_steps = number of simulation steps to simulate
 %
@@ -42,11 +43,4 @@ for step = 2 : num_steps
     S(step) = s;
     I(step) = i;
     R(step) = r;
-    %if 15 <= num_steps <= 20;
-    %   lambda = 1/90;  
-    %else
-    %   lambda = 1/270;
-    %end 
-end
-
 end
