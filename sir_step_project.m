@@ -23,10 +23,42 @@ function [s_n, i_n, r_n] = sir_step_project(s, i, r, beta, gamma, lambda, mu, st
 %
 
 %if step <= 999
+infected  = beta*s*i;
+recovered = gamma*i;
 
-s_n = s - beta*s*i - mu*s + lambda*r*i;
-i_n = i + beta*s*i - gamma*i;
-r_n = r + gamma*i - lambda*r*i + mu*s;
+% Enforce invariants 1
+%total = s + i + r;
+%infected = min(s, infected);           % Cannot infect more people than current s
+%infected = min(total - i, infected);   % Cannot infect more than total
+%recovered = min(i, recovered);         % Cannot recover more people than current i
+%recovered = min(total - r, recovered); % Cannot recover more than total
+
+
+% Update state 1
+s_n = s - infected;
+i_n = i + infected - recovered;
+r_n = r + recovered;
+
+vaccinated = mu*s_n;
+reinfected = lambda*r_n*i_n;
+
+% Enforce invariants 2
+%total = s_n + i_n + r_n;
+%vaccinated = min(s_n, vaccinated);           % Cannot vaccinate more people than current s
+%vaccinated = min(total - r_n, vaccinated);   % Cannot vaccinate more than total
+%reinfected = min(r_n, reinfected);         % Cannot reinfecte more people than current r
+%reinfected = min(total - i_n, reinfected); % Cannot reinfecte more than total
+
+% Update state 2
+s_n = s_n - vaccinated + reinfected;
+i_n = i_n;
+r_n = r_n - reinfected + vaccinated;
+
+
+%Previously:
+%s_n = s - beta*s*i - mu*s + lambda*r*i;
+%i_n = i + beta*s*i - gamma*i;
+%r_n = r + gamma*i - lambda*r*i + mu*s;
 
 %{
 else
